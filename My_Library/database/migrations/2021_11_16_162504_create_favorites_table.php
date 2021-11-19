@@ -15,7 +15,11 @@ class CreateFavoritesTable extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer("library_id");
+            $table->integer("user_id");
+            $table->timestamp("created_at")->useCurrent()->nullable();
+            $table->timestamp("updated_at")->useCurrent()->nullable();
+            $table->softDeletes();
         });
     }
 

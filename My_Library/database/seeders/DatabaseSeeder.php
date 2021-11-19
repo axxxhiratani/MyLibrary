@@ -14,5 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+
+        //userの登録
+        // $this->call(UsersTableSeeder::class);
+
+        //languageの登録
+        $this->call(LanguageTableSeeder::class);
     }
 }

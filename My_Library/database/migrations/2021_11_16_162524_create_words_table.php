@@ -15,7 +15,13 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer("library_id");
+            $table->string("name");
+            $table->string("meaning");
+            $table->string("note");
+            $table->timestamp("created_at")->useCurrent()->nullable();
+            $table->timestamp("updated_at")->useCurrent()->nullable();
+            $table->softDeletes();
         });
     }
 

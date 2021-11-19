@@ -15,7 +15,13 @@ class CreateLibrariesTable extends Migration
     {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer("user_id");
+            $table->integer("language_id");
+            $table->string("name");
+            $table->boolean("view_permit");
+            $table->timestamp("created_at")->useCurrent()->nullable();
+            $table->timestamp("updated_at")->useCurrent()->nullable();
+            $table->softDeletes();
         });
     }
 
