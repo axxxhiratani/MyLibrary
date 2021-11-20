@@ -20,6 +20,12 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
         //languageの登録
-        $this->call(LanguageTableSeeder::class);
+        // $this->call(LanguageTableSeeder::class);
+
+        //workの登録
+        // $this->call(WorksTablesSeeder::class);
+
+        //profileの登録
+        $this->call(ProfilesTableSeeder::class);
     }
 }

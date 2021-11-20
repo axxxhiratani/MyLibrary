@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\UserController;
 use App\Http\controllers\LanguageController;
+use App\Http\controllers\WorkController;
+use App\Http\controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource("/v1/user",UserController::class);
 
 Route::apiResource("/v1/language",LanguageController::class);
+
+Route::apiResource("/v1/work",WorkController::class);
+
+Route::apiResource("/v1/profile",ProfileController::class);
