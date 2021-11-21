@@ -6,6 +6,10 @@ use App\Http\controllers\UserController;
 use App\Http\controllers\LanguageController;
 use App\Http\controllers\WorkController;
 use App\Http\controllers\ProfileController;
+use App\Http\controllers\LibraryController;
+use App\Http\controllers\WordController;
+use App\Http\controllers\FavoriteController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,9 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource("/v1/user",UserController::class);
-
 Route::apiResource("/v1/language",LanguageController::class);
-
 Route::apiResource("/v1/work",WorkController::class);
-
 Route::apiResource("/v1/profile",ProfileController::class);
+Route::apiResource("/v1/library",LibraryController::class);
+Route::apiResource("/v1/word",WordController::class);
+Route::apiResource("/v1/favorite",FavoriteController::class);

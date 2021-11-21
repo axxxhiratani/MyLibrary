@@ -26,6 +26,15 @@ class DatabaseSeeder extends Seeder
         // $this->call(WorksTablesSeeder::class);
 
         //profileの登録
-        $this->call(ProfilesTableSeeder::class);
+        // $this->call(ProfilesTableSeeder::class);
+
+        //libraryの登録
+        // $this->call(LibrariesTablesSeeder::class);
+
+        // workの登録
+        // $this->call(WordsTableSeeder::class);
+
+        // favoriteの登録
+        // $this->call(FavoritesTableSeed::class);
     }
 }
