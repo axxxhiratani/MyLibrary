@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\models\Word;
+use App\models\Favorite;
 
 class Library extends Model
 {
@@ -15,4 +17,14 @@ class Library extends Model
         "name",
         "view_permit",
     ];
+
+    //$library->words
+    public function words(){
+        return $this->hasMany(Word::class);
+    }
+
+    //$library->favorites
+    public function favorites(){
+        return $this->hasMany(Favorite::class);
+    }
 }

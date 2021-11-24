@@ -46,9 +46,14 @@ class LibraryController extends Controller
     {
         //
         $item = Library::where("id",$library->id)->get();
+        $words = Library::where("id",$library->id)->with("words")->get();
+        $favorite = Library::where("id",$library->id)->with("favorites")->get();
+
         if($item){
             return response()->json([
-                "library" => $item
+                "library"=>$item,
+                "words" => $words,
+                "favorites"=>$favorite,
             ],200);
         }else{
             return response()->json([

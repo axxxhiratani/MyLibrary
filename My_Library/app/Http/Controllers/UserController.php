@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Auth\Events\Registered;
+use App\Http\Controllers\Auth;
 
 class UserController extends Controller
 {
@@ -29,9 +34,31 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $item = User::create($request->all());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', "confirmed",Rules\Password::defaults()],
+
+        ]);
+
+        $item = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        // event(new Registered($item));
+
+        // Auth::login($item);
+
+
+        /**
+         *ここらにセッションの情報を書いておく。後で。
+         *これはフロント側でやるの？？
+         */
+
         return response()->json([
-            "data"=>$item
+            "user" => $item
         ],201);
     }
 
@@ -45,9 +72,16 @@ class UserController extends Controller
     {
         //
         $item = User::where("id",$user->id)->get();
+        $libraries = User::where("id",$user->id)->with("libraries")->get();
+        $favorites = User::where("id",$user->id)->with("favorites")->get();
+        $profile = User::where("id",$user->id)->with("profile")->get();
+
         if($item){
             return response()->json([
-                "user"=>$item
+                "user"=>$item,
+                "libraries" => $libraries,
+                "favorites" => $favorites,
+                "profile" => $profile
             ]);
         }else{
             return response()->json([
@@ -103,4 +137,14 @@ class UserController extends Controller
             ],404);
         }
     }
+
+    //ログイン機能の実装
+    // public function loginUser(LoginRequest $request){
+    //     $request->authenticate();
+    //     $request->session()->regenerate();
+    //     return response()->json([
+    //         "message" => "login success"
+    //     ]);
+
+    // }
 }

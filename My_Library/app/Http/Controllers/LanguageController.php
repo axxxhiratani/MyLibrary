@@ -47,9 +47,14 @@ class LanguageController extends Controller
     {
         //
         $item = Language::where("id",$language->id)->get();
+        $library = Language::where("id",$language->id)->with("libraries")->get();
+        $profile = Language::where("id",$language->id)->with("profiles")->get();
+
         if($item){
             return response()->json([
-                "language" => $item
+                "language" => $item,
+                "libraries" => $library,
+                "profiles" => $profile,
             ],200);
         }else{
             return response()->json([

@@ -47,9 +47,11 @@ class WorkController extends Controller
     {
         //
         $item = Work::where("id",$work->id)->get();
+        $profile = Work::where("id",$work->id)->with("profiles")->get();
         if($item){
             return response()->json([
-                "work"=>$item
+                "work"=>$item,
+                "profiles" => $profile,
             ],200);
         }else{
             return response()->json([
