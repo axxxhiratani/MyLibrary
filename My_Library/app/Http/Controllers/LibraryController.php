@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Library;
+use App\Models\User;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class LibraryController extends Controller
@@ -16,8 +18,23 @@ class LibraryController extends Controller
     {
         //
         $item = Library::all();
+
+        //idからユーザー情報と辞書情報を取得する
+        $item_lenght = count($item);
+        for($i = 0; $i<$item_lenght; $i++){
+            //ユーザー情報の挿入
+            $user_id = $item[$i]["user_id"];
+            $user = User::where("id",$user_id)->get();
+            $item[$i]["user_id"] = $user;
+            //辞書情報の挿入
+            $language_id = $item[$i]["language_id"];
+            $language = Language::where("id",$language_id)->get();
+            $item[$i]["language_id"] = $language;
+        }
+
         return response()->json([
-            "libraries" => $item
+            "libraries" => $item,
+            "user" => $item_lenght,
         ],200);
     }
 
@@ -46,14 +63,22 @@ class LibraryController extends Controller
     {
         //
         $item = Library::where("id",$library->id)->get();
+
+        //1対多
         $words = Library::where("id",$library->id)->with("words")->get();
-        $favorite = Library::where("id",$library->id)->with("favorites")->get();
+        $favorites = Library::where("id",$library->id)->with("favorites")->get();
+
+        //多対1
+        $user = Library::where("id",$library->id)->with("user")->get();
+        $language = Library::where("id",$library->id)->with("language")->get();
 
         if($item){
             return response()->json([
                 "library"=>$item,
                 "words" => $words,
-                "favorites"=>$favorite,
+                "favorites"=>$favorites,
+                "user"=>$user,
+                "language"=>$language
             ],200);
         }else{
             return response()->json([

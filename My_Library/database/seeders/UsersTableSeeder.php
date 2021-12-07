@@ -17,14 +17,21 @@ class UsersTableSeeder extends Seeder
         //
         User::create([
             "name"=>"akio",
-            "email"=>"akio@gmail.com",
-            "password"=>"root1223334444"
+            'uuid' => "fioniowf31r4r",
+            "work_id" =>1,
+            "language_id" => 1,
+            "introduction" =>"hello",
+
         ]);
+
         User::create([
             "name"=>"yuri",
-            "email"=>"yuri@gmail.com",
-            "password"=>"root1223334444"
+            'uuid' => "fiofwewwfeniowf31r4r",
+            "work_id" =>1,
+            "language_id" => 1,
+            "introduction" =>"hello",
         ]);
+
 
     }
 }

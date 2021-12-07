@@ -35,6 +35,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(WordsTableSeeder::class);
 
         // favoriteの登録
-        // $this->call(FavoritesTableSeed::class);
+        $this->call(FavoritesTableSeed::class);
     }
 }

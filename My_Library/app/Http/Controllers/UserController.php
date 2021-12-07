@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -34,17 +35,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', "confirmed",Rules\Password::defaults()],
-
-        ]);
-
         $item = User::create([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'uuid' => $request->uuid,
+            "work_id" => $request->work_id,
+            "language_id" => $request->language_id,
+            "introduction" => $request->introduction,
         ]);
 
         // event(new Registered($item));
@@ -72,16 +68,32 @@ class UserController extends Controller
     {
         //
         $item = User::where("id",$user->id)->get();
+
         $libraries = User::where("id",$user->id)->with("libraries")->get();
+
+        //idからユーザー情報と辞書情報を取得する
+        $libraries_lenght = count($libraries[0]["libraries"]);
+        for($i = 0; $i<$libraries_lenght; $i++){
+            //辞書情報の挿入
+            $language_id = $libraries[0]["libraries"][$i]["language_id"];
+            $language = Language::where("id",$language_id)->get();
+            $libraries[0]["libraries"][$i]["language_id"] = $language;
+        }
+
         $favorites = User::where("id",$user->id)->with("favorites")->get();
-        $profile = User::where("id",$user->id)->with("profile")->get();
+
+        $work = User::where("id",$user->id)->with("work")->get();
+        $language = User::where("id",$user->id)->with("language")->get();
+
 
         if($item){
             return response()->json([
                 "user"=>$item,
                 "libraries" => $libraries,
                 "favorites" => $favorites,
-                "profile" => $profile
+                "work" => $work,
+                "language" => $language,
+
             ]);
         }else{
             return response()->json([
@@ -101,9 +113,11 @@ class UserController extends Controller
     {
         //
         $value = [
-            "name"=>$request->name,
-            "email"=>$request->email,
-            "password"=>$request->password,
+            'name' => $request->name,
+            'uuid' => $request->uuid,
+            "work_id" => $request->work_id,
+            "language_id" => $request->language_id,
+            "introduction" => $request->introduction,
         ];
         $item = User::where("id",$user->id)->update($request->all());
         if($item){

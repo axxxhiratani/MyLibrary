@@ -10,11 +10,16 @@ use Laravel\Sanctum\HasApiTokens;
 use App\models\Library;
 use App\models\Favorite;
 use App\models\Profile;
+use App\models\Work;
+use App\models\Language;
 
-class User extends Authenticatable
+//JWTを使用する
+use Tymon\JWTAuth\Contracts\JWTSubject;
+
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    // use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -23,29 +28,29 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
-        
+        'uuid',
+        "work_id",
+        "language_id",
+        "introduction",
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array
      */
-    protected $hidden = [
-        // 'password',
-        'remember_token',
-    ];
+    // protected $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];
 
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 
     //$user->libraries
     public function libraries(){
@@ -61,4 +66,26 @@ class User extends Authenticatable
     public function profile(){
         return $this->hasOne(Profile::class);
     }
+    //profile->work
+    public function work(){
+        return $this->belongsTo(Work::class);
+    }
+    //profile->language
+    public function language(){
+        return $this->belongsTo(Language::class);
+    }
+
+
+    //追加
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
 }

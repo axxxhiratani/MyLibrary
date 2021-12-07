@@ -46,9 +46,14 @@ class FavoriteController extends Controller
     {
         //
         $item = Favorite::where("id",$favorite->id)->get();
+        $library = Favorite::where("id",$favorite->id)->with("library")->get();
+        $user = Favorite::where("id",$favorite->id)->with("user")->get();
+
         if($item){
             return response()->json([
-                "favorite" => $item
+                "favorite" => $item,
+                "library"=>$library,
+                "user"=>$user,
             ],200);
         }else{
             return response()->json([

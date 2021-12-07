@@ -17,37 +17,42 @@ class LanguageTableSeeder extends Seeder
         //
         Language::create([
             "name" => "HTML",
-            "image" => "HTML.png"
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/html.png"
         ]);
 
         Language::create([
             "name" => "CSS",
-            "image" => "CSS.png"
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/css.png"
         ]);
 
         Language::create([
             "name" => "JavaScript",
-            "image" => "JavaScript.png"
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/javascript.png"
         ]);
 
         Language::create([
             "name" => "PHP",
-            "image" => "PHP.png"
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/php.png"
         ]);
 
         Language::create([
             "name" => "JAVA",
-            "image" => "JAVA.png"
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/java.png"
         ]);
 
         Language::create([
             "name" => "Ruby",
-            "image" => "Ruby.png"
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/ruby.png"
         ]);
 
         Language::create([
-            "name" => "Python",
-            "image" => "Python.png"
+            "name" => "python",
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/python.png"
         ]);
+        Language::create([
+            "name" => "その他",
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/normal.png"
+        ]);
+
     }
 }

@@ -47,9 +47,12 @@ class WordController extends Controller
     {
         //
         $item = Word::where("id",$word->id)->get();
+        $library = Word::where("id",$word->id)->with("library")->get();
+
         if($item){
             return response()->json([
-                "word" => $item
+                "word" => $item,
+                "library"=>$library,
             ],200);
         }else{
             return response()->json([

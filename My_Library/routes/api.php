@@ -9,6 +9,8 @@ use App\Http\controllers\ProfileController;
 use App\Http\controllers\LibraryController;
 use App\Http\controllers\WordController;
 use App\Http\controllers\FavoriteController;
+use App\Http\controllers\AuthController;
+use App\Http\controllers\InvestigateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +25,28 @@ use App\Http\controllers\FavoriteController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+
+//認証のルーティング
+Route::group([
+    "middleware"=>["auth:api"],
+    "prefix"=>"auth"
+],function($router){
+    Route::post("register",[AuthController::class,"register"])->withoutMiddleware(["auth:api"]);
+    Route::post("login",[AuthController::class,"login"])->withoutMiddleware(["auth:api"]);
+    Route::post("logout",[AuthController::class,"logout"]);
+    Route::post("refresh",[AuthController::class,"refresh"]);
+    Route::get("user",[AuthController::class,"me"]);
+});
+
+Route::prefix("v1/investigate")->group(function(){
+    Route::get("/libraryname",[InvestigateController::class,"searchLibraryByName"]);
+    Route::get("/librarylanguage",[InvestigateController::class,"searchLibraryByLanguage"]);
+    Route::get("/wordname",[InvestigateController::class,"searchWordByName"]);
+    Route::get("/userid",[InvestigateController::class,"searchIdByUid"]);
+
 });
 
 

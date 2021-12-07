@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\models\User;
+use App\models\Library;
 
 class Favorite extends Model
 {
@@ -13,4 +15,14 @@ class Favorite extends Model
         "library_id",
         "user_id",
     ];
+
+    //favorite->library
+    public function library(){
+        return $this->belongsTo(Library::class);
+    }
+
+    //favorite->user
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

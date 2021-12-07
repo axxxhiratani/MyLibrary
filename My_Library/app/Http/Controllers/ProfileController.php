@@ -46,9 +46,15 @@ class ProfileController extends Controller
     {
         //
         $item = Profile::where("id",$profile->id)->get();
+        $work = Profile::where("id",$profile->id)->with("work")->get();
+        $user = Profile::where("id",$profile->id)->with("user")->get();
+        $language = Profile::where("id",$profile->id)->with("language")->get();
         if($item){
             return response()->json([
-                "profile" => $item
+                "profile" => $item,
+                "work" => $work,
+                "user" => $user,
+                "language" => $language,
             ],200);
         }else{
             return response()->json([
