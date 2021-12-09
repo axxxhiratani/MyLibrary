@@ -17,11 +17,11 @@ class LibraryController extends Controller
     public function index()
     {
         //
-        $item = Library::all();
+        $item = Library::orderBy('id', 'desc')->get();
 
         //idからユーザー情報と辞書情報を取得する
-        $item_lenght = count($item);
-        for($i = 0; $i<$item_lenght; $i++){
+        $item_length = count($item);
+        for($i = 0; $i<$item_length; $i++){
             //ユーザー情報の挿入
             $user_id = $item[$i]["user_id"];
             $user = User::where("id",$user_id)->get();
@@ -34,7 +34,7 @@ class LibraryController extends Controller
 
         return response()->json([
             "libraries" => $item,
-            "user" => $item_lenght,
+            "user" => $item_length,
         ],200);
     }
 

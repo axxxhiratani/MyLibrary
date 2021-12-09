@@ -39,6 +39,7 @@ Route::group([
     Route::post("logout",[AuthController::class,"logout"]);
     Route::post("refresh",[AuthController::class,"refresh"]);
     Route::get("user",[AuthController::class,"me"]);
+
 });
 
 Route::prefix("v1/investigate")->group(function(){
@@ -46,6 +47,7 @@ Route::prefix("v1/investigate")->group(function(){
     Route::get("/librarylanguage",[InvestigateController::class,"searchLibraryByLanguage"]);
     Route::get("/wordname",[InvestigateController::class,"searchWordByName"]);
     Route::get("/userid",[InvestigateController::class,"searchIdByUid"]);
+    Route::get("/favoritelist",[InvestigateController::class,"searchFavoriteByUser"]);
 
 });
 
@@ -57,3 +59,4 @@ Route::apiResource("/v1/profile",ProfileController::class);
 Route::apiResource("/v1/library",LibraryController::class);
 Route::apiResource("/v1/word",WordController::class);
 Route::apiResource("/v1/favorite",FavoriteController::class);
+

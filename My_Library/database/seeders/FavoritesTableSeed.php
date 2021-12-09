@@ -25,9 +25,5 @@ class FavoritesTableSeed extends Seeder
             "user_id" => 1
         ]);
 
-        Favorite::create([
-            "library_id" => 3,
-            "user_id" => 1
-        ]);
     }
 }

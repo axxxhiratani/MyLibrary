@@ -50,6 +50,22 @@ class LanguageTableSeeder extends Seeder
             "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/python.png"
         ]);
         Language::create([
+            "name" => "Linux",
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/linux.png"
+        ]);
+        Language::create([
+            "name" => "VBA",
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/vba.png"
+        ]);
+        Language::create([
+            "name" => "ShellScript",
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/shellscript.png"
+        ]);
+        Language::create([
+            "name" => "IT用語",
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/itword.png"
+        ]);
+        Language::create([
             "name" => "その他",
             "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/normal.png"
         ]);

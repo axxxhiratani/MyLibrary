@@ -17,21 +17,11 @@ class UsersTableSeeder extends Seeder
         //
         User::create([
             "name"=>"akio",
-            'uuid' => "fioniowf31r4r",
+            'uuid' => "XdXdU5WP9ASO3LNosjuYZE4bY032",
             "work_id" =>1,
             "language_id" => 1,
-            "introduction" =>"hello",
-
+            "introduction" =>"hello world",
         ]);
-
-        User::create([
-            "name"=>"yuri",
-            'uuid' => "fiofwewwfeniowf31r4r",
-            "work_id" =>1,
-            "language_id" => 1,
-            "introduction" =>"hello",
-        ]);
-
 
     }
 }
