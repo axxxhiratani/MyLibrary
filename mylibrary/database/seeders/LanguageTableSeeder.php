@@ -26,6 +26,10 @@ class LanguageTableSeeder extends Seeder
         ]);
 
         Language::create([
+            "name" => "C",
+            "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/c.png"
+        ]);
+        Language::create([
             "name" => "JavaScript",
             "image" => "https://d1jsua0yydl5v7.cloudfront.net/img/javascript.png"
         ]);

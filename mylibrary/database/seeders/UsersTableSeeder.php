@@ -22,6 +22,5 @@ class UsersTableSeeder extends Seeder
             "language_id" => 4,
             "introduction" =>"hello world",
         ]);
-
     }
 }

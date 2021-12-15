@@ -18,16 +18,17 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('uuid');
-            $table->integer("work_id");
-            $table->integer("language_id");
+            $table->unsignedBigInteger("work_id");
+            $table->unsignedBigInteger("language_id");
             $table->string("introduction",1024);
-            // $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->string('password');
-            // $table->rememberToken();
             $table->timestamp("created_at")->useCurrent()->nullable();
             $table->timestamp("updated_at")->useCurrent()->nullable();
             $table->softDeletes();
+
+            //外部キー制約
+            $table->foreign("work_id")->references("id")->on("works")->onDelete("cascade");
+            $table->foreign("language_id")->references("id")->on("languages")->onDelete("cascade");
+
         });
 
         // //データ挿入

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFavoritesTable extends Migration
+class CreateWordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class CreateFavoritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('favorites', function (Blueprint $table) {
+        Schema::create('words', function (Blueprint $table) {
             $table->id();
-            $table->integer("library_id");
-            $table->integer("user_id");
+            $table->unsignedBigInteger("library_id");
+            $table->string("name");
+            $table->string("meaning");
+            $table->string("note");
             $table->timestamp("created_at")->useCurrent()->nullable();
             $table->timestamp("updated_at")->useCurrent()->nullable();
             $table->softDeletes();
+
+            //外部キー制約
+            $table->foreign("library_id")->references("id")->on("libraries")->onDelete("cascade");
         });
     }
 
@@ -30,6 +35,6 @@ class CreateFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favorites');
+        Schema::dropIfExists('words');
     }
 }

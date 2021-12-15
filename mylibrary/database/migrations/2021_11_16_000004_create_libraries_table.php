@@ -15,13 +15,17 @@ class CreateLibrariesTable extends Migration
     {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
-            $table->integer("language_id");
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("language_id");
             $table->string("name");
             $table->boolean("view_permit");
             $table->timestamp("created_at")->useCurrent()->nullable();
             $table->timestamp("updated_at")->useCurrent()->nullable();
             $table->softDeletes();
+
+            //外部キー制約
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("language_id")->references("id")->on("languages")->onDelete("cascade");
         });
     }
 

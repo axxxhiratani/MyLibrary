@@ -15,26 +15,26 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-
-        //userの登録
-        $this->call(UsersTableSeeder::class);
+        //workの登録
+        $this->call(WorksTablesSeeder::class);
 
         //languageの登録
         $this->call(LanguageTableSeeder::class);
 
-        //workの登録
-        $this->call(WorksTablesSeeder::class);
-
-        //profileの登録
-        $this->call(ProfilesTableSeeder::class);
+        //userの登録
+        // $this->call(UsersTableSeeder::class);
 
         //libraryの登録
-        $this->call(LibrariesTablesSeeder::class);
+        // $this->call(LibrariesTablesSeeder::class);
 
         // workの登録
-        $this->call(WordsTableSeeder::class);
+        // $this->call(WordsTableSeeder::class);
 
         // favoriteの登録
-        $this->call(FavoritesTableSeed::class);
+        // $this->call(FavoritesTableSeed::class);
+
+        //profileの登録
+        // $this->call(ProfilesTableSeeder::class);
+
     }
 }
