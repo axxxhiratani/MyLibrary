@@ -18,8 +18,8 @@ class UsersTableSeeder extends Seeder
         User::create([
             "name"=>"akio",
             'uuid' => "XdXdU5WP9ASO3LNosjuYZE4bY032",
-            "work_id" =>4,
-            "language_id" => 4,
+            "work_id" =>1,
+            "language_id" => 1,
             "introduction" =>"hello world",
         ]);
     }

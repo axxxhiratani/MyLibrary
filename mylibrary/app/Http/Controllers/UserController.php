@@ -36,8 +36,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $item = User::create([
+            'id' => $request->uid,
             'name' => $request->name,
-            'uuid' => $request->uuid,
             "work_id" => $request->work_id,
             "language_id" => $request->language_id,
             "introduction" => $request->introduction,
@@ -111,7 +111,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+
         $value = [
             'name' => $request->name,
             'uuid' => $request->uuid,
