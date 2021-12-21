@@ -14,10 +14,13 @@ class LibraryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $item = Library::orderBy('id', 'desc')->get();
+
+        $item = Library::where("view_permit",1)->limit(6)->offset(6*($request->page-1))->get();
+        $item_count = Library::where("view_permit",1)->count();
+        $item_count = ceil($item_count /6);
         $users = User::all();
         $languages = Language::all();
 
@@ -47,6 +50,7 @@ class LibraryController extends Controller
         }
         return response()->json([
             "libraries" => $item,
+            "count" => $item_count,
         ],200);
     }
 
