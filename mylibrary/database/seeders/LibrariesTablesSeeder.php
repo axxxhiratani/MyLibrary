@@ -16,15 +16,15 @@ class LibrariesTablesSeeder extends Seeder
     {
         //
         Library::create([
-            "user_id" => 4,
-            "language_id" => 4,
+            "user_id" => 1,
+            "language_id" => 1,
             "name" => "HTML Library",
             "view_permit" => true,
         ]);
 
         Library::create([
-            "user_id" => 4,
-            "language_id" => 14,
+            "user_id" => 1,
+            "language_id" => 2,
             "name" => "CSS Library",
             "view_permit" => false,
         ]);

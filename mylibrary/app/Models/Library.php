@@ -47,5 +47,4 @@ class Library extends Model
         return $this->belongsToMany(User::class)->withPivot("user");
     }
 
-
 }

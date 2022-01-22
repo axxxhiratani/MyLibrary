@@ -16,13 +16,13 @@ class FavoritesTableSeed extends Seeder
     {
         //
         Favorite::create([
-            "library_id" => 4,
-            "user_id" => 4
+            "library_id" => 1,
+            "user_id" => 1
         ]);
 
         Favorite::create([
-            "library_id" => 14,
-            "user_id" => 4
+            "library_id" => 2,
+            "user_id" => 1
         ]);
 
     }

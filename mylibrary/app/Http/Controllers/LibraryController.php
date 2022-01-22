@@ -21,32 +21,11 @@ class LibraryController extends Controller
         $item = Library::where("view_permit",1)->limit(6)->offset(6*($request->page-1))->get();
         $item_count = Library::where("view_permit",1)->count();
         $item_count = ceil($item_count /6);
-        $users = User::all();
-        $languages = Language::all();
 
         //idからユーザー情報と辞書情報を取得する
-        for($i = 0; $i<count($item); $i++){
-
-
-            //ユーザー情報の挿入
-            $user_id = $item[$i]["user_id"];
-            $count = 0;
-            for($j = 0; $j < count($users); $j++){
-                if($users[$j]["id"] === $user_id){
-                    $user = $users[$j];
-                }
-            }
-            $item[$i]["user_id"] = $user;
-
-
-            //辞書情報の挿入
-            $language_id = $item[$i]["language_id"];
-            for($j = 0; $j < count($languages); $j++){
-                if($languages[$j]["id"] === $language_id){
-                    $language = $languages[$j];
-                }
-            }
-            $item[$i]["language_id"] = $language;
+        foreach($item as $index => $library){
+            $item[$index]["user_id"] = $library->user;
+            $item[$index]["language_id"] = $library->language;
         }
         return response()->json([
             "libraries" => $item,

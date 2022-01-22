@@ -16,13 +16,13 @@ class WordsTableSeeder extends Seeder
     {
         //
         Word::create([
-            "library_id" => 4,
+            "library_id" => 1,
             "name" => "<a href=></a>",
             "meaning" => "ハイパーリンク",
             "note" => "なし"
         ]);
         Word::create([
-            "library_id" => 4,
+            "library_id" => 1,
             "name" => "<form>",
             "meaning" => "フォーム",
             "note" => "なし"

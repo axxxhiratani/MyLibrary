@@ -15,31 +15,11 @@ class InvestigateController extends Controller
     //辞書を単語名で検索する
     public function searchLibraryByName(Request $request)
     {
-        $item = Library::where("name","like","%".$request->name."%")->get();
-        $users = User::all();
-        $languages = Language::all();
-
+        $item = Library::where("name","like","%".$request->name."%")->where("view_permit",1)->get();
         //idからユーザー情報と辞書情報を取得する
-        for($i = 0; $i < count($item); $i++){
-            //ユーザー情報の挿入
-            $user_id = $item[$i]["user_id"];
-            $count = 0;
-            for($j = 0; $j < count($users); $j++){
-                if($users[$j]["id"] === $user_id){
-                    $user = $users[$j];
-                }
-            }
-            $item[$i]["user_id"] = $user;
-
-
-            //辞書情報の挿入
-            $language_id = $item[$i]["language_id"];
-            for($j = 0; $j < count($languages); $j++){
-                if($languages[$j]["id"] === $language_id){
-                    $language = $languages[$j];
-                }
-            }
-            $item[$i]["language_id"] = $language;
+        foreach($item as $index => $library){
+            $item[$index]["user_id"] = $library->user;
+            $item[$index]["language_id"] = $library->language;
         }
 
         if($item){
@@ -55,7 +35,12 @@ class InvestigateController extends Controller
     //辞書を言語で検索する。
     public function searchLibraryByLanguage(Request $request)
     {
-        $item = Library::where("language_id",$request->language)->get();
+        $item = Library::where("language_id",$request->language)->where("view_permit",1)->get();
+        //idからユーザー情報と辞書情報を取得する
+        foreach($item as $index => $library){
+            $item[$index]["user_id"] = $library->user;
+            $item[$index]["language_id"] = $library->language;
+        }
         if($item){
             return response()->json([
                 "libraries"=>$item,
@@ -65,6 +50,7 @@ class InvestigateController extends Controller
                 "message"=>"Not Found"
             ],404);
         }
+
     }
     //単語帳を単語名で検索する。
     public function searchWordByName(Request $request)
@@ -100,30 +86,10 @@ class InvestigateController extends Controller
     public function searchFavoriteByUser(Request $request)
     {
         $item = Favorite::where("user_id",$request->user_id)->get();
-        $libraries = Library::all();
-        $languages = Language::all();
-
-        for($i = 0; $i < count($item); $i++){
-
-            //辞書の情報の取り出し
-            $library_id = $item[$i]["library_id"];
-
-            for($j = 0; $j < count($libraries); $j++){
-                if($libraries[$j]["id"] === $library_id){
-                    $library = $libraries[$j];
-                }
-            }
-            $item[$i]["library_id"] = $library;
-
-            //言語の情報の取り出し
-            $language_id = $item[$i]["library_id"]["language_id"];
-
-            for($j=0; $j < count($languages); $j++){
-                if($languages[$j]["id"] === $language_id){
-                    $language = $languages[$j];
-                }
-            }
-            $item[$i]["library_id"]["language_id"] = $language;
+        //idからユーザー情報と辞書情報を取得する
+        foreach($item as $index => $favorite){
+            $item[$index]["library_id"] = $favorite->library;
+            $item[$index]["library_id"]["language_id"] = $favorite->library->language;
         }
         if($item){
             return response()->json([
@@ -135,5 +101,4 @@ class InvestigateController extends Controller
             ],404);
         }
     }
-
 }

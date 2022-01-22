@@ -42,17 +42,6 @@ class UserController extends Controller
             "language_id" => $request->language_id,
             "introduction" => $request->introduction,
         ]);
-
-        // event(new Registered($item));
-
-        // Auth::login($item);
-
-
-        /**
-         *ここらにセッションの情報を書いておく。後で。
-         *これはフロント側でやるの？？
-         */
-
         return response()->json([
             "user" => $item
         ],201);
@@ -68,23 +57,14 @@ class UserController extends Controller
     {
         //
         $item = User::where("id",$user->id)->get();
-
         $libraries = User::where("id",$user->id)->with("libraries")->get();
-
         //idからユーザー情報と辞書情報を取得する
-        $libraries_lenght = count($libraries[0]["libraries"]);
-        for($i = 0; $i<$libraries_lenght; $i++){
-            //辞書情報の挿入
-            $language_id = $libraries[0]["libraries"][$i]["language_id"];
-            $language = Language::where("id",$language_id)->get();
-            $libraries[0]["libraries"][$i]["language_id"] = $language;
+        foreach($libraries[0]["libraries"] as $index => $library){
+            $libraries[0]["libraries"][$index]["language_id"] = $library->language;
         }
-
         $favorites = User::where("id",$user->id)->with("favorites")->get();
-
         $work = User::where("id",$user->id)->with("work")->get();
         $language = User::where("id",$user->id)->with("language")->get();
-
 
         if($item){
             return response()->json([
@@ -93,7 +73,6 @@ class UserController extends Controller
                 "favorites" => $favorites,
                 "work" => $work,
                 "language" => $language,
-
             ]);
         }else{
             return response()->json([
@@ -111,7 +90,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
         $value = [
             'name' => $request->name,
             'uuid' => $request->uuid,
@@ -151,14 +129,4 @@ class UserController extends Controller
             ],404);
         }
     }
-
-    //ログイン機能の実装
-    // public function loginUser(LoginRequest $request){
-    //     $request->authenticate();
-    //     $request->session()->regenerate();
-    //     return response()->json([
-    //         "message" => "login success"
-    //     ]);
-
-    // }
 }

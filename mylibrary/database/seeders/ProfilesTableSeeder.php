@@ -16,9 +16,9 @@ class ProfilesTableSeeder extends Seeder
     {
         //
         Profile::create([
-            "user_id"=>4,
-            "work_id"=>4,
-            "language_id"=>4,
+            "user_id"=>1,
+            "work_id"=>1,
+            "language_id"=>1,
             "introduction" => "よろしくお願いいたします。"
         ]);
     }

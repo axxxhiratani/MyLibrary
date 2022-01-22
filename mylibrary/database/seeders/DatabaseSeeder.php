@@ -22,16 +22,16 @@ class DatabaseSeeder extends Seeder
         $this->call(LanguageTableSeeder::class);
 
         //userの登録
-        // $this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
 
         //libraryの登録
-        // $this->call(LibrariesTablesSeeder::class);
+        $this->call(LibrariesTablesSeeder::class);
 
         // workの登録
-        // $this->call(WordsTableSeeder::class);
+        $this->call(WordsTableSeeder::class);
 
         // favoriteの登録
-        // $this->call(FavoritesTableSeed::class);
+        $this->call(FavoritesTableSeed::class);
 
         //profileの登録
         // $this->call(ProfilesTableSeeder::class);
