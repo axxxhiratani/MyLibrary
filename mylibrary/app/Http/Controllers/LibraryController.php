@@ -15,7 +15,7 @@ class LibraryController extends Controller
     public function index(Request $request)
     {
         //
-        $item = Library::where("view_permit",1)->paginate(6);;
+        $item = Library::where("view_permit",1)->paginate(6);
 
         //idからユーザー情報と辞書情報を取得する
         foreach($item as $index => $library){
