@@ -15,7 +15,7 @@ class InvestigateController extends Controller
     //辞書を単語名で検索する
     public function searchLibraryByName(Request $request)
     {
-        $item = Library::where("name","like","%".$request->name."%")->where("view_permit",1)->get();
+        $item = Library::where("name","like","%".$request->name."%")->where("view_permit",1)->paginate(6);
         //idからユーザー情報と辞書情報を取得する
         foreach($item as $index => $library){
             $item[$index]["user_id"] = $library->user;
@@ -35,7 +35,7 @@ class InvestigateController extends Controller
     //辞書を言語で検索する。
     public function searchLibraryByLanguage(Request $request)
     {
-        $item = Library::where("language_id",$request->language)->where("view_permit",1)->get();
+        $item = Library::where("language_id",$request->language)->where("view_permit",1)->paginate(6);
         //idからユーザー情報と辞書情報を取得する
         foreach($item as $index => $library){
             $item[$index]["user_id"] = $library->user;

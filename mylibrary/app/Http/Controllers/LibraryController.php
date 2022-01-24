@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Library;
-use App\Models\User;
-use App\Models\Language;
 use Illuminate\Http\Request;
 
 class LibraryController extends Controller
@@ -17,10 +15,7 @@ class LibraryController extends Controller
     public function index(Request $request)
     {
         //
-
-        $item = Library::where("view_permit",1)->limit(6)->offset(6*($request->page-1))->get();
-        $item_count = Library::where("view_permit",1)->count();
-        $item_count = ceil($item_count /6);
+        $item = Library::where("view_permit",1)->paginate(6);;
 
         //idからユーザー情報と辞書情報を取得する
         foreach($item as $index => $library){
@@ -28,8 +23,7 @@ class LibraryController extends Controller
             $item[$index]["language_id"] = $library->language;
         }
         return response()->json([
-            "libraries" => $item,
-            "count" => $item_count,
+            "libraries" => $item
         ],200);
     }
 
